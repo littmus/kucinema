@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import requests
 from bs4 import BeautifulSoup as bs
 
@@ -15,4 +17,4 @@ def parse(url):
     print r.text
 
 parse(kucinema_trap)
-parse(kucinema_theque)
+#parse(kucinema_theque)

@@ -25,11 +25,11 @@ class Schedule(models.Model):
     movie = models.ForeignKey(Movie)
 
     THEATER_CHOCIES = (
-        ('trap', ''),
-        ('theque', ''),
+        ('tr', 'trap'),
+        ('tq', 'theque'),
     )
 
-    theater = models.CharField(length=1, choices=THEATER_CHOCIES)
+    theater = models.CharField(length=2, choices=THEATER_CHOCIES)
 
     class Meta:
         app_label = 'kucinema'
