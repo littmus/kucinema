@@ -1,7 +1,11 @@
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
+
+from models import *
+
 admin.autodiscover()
+admin.site.register(Movie)
+admin.site.register(Schedule)
 
 urlpatterns = patterns('',
     # Examples:
