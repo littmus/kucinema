@@ -44,5 +44,5 @@ class Schedule(models.Model):
         ordering = ['date', 'time_start']
 
     def __unicode__(self):
-        return '%s - %s' % (self.movie.title, self.date)
+        return '%s : %s (%s-%s)' % (self.date, self.movie.title, self.time_start, self.time_end)
 

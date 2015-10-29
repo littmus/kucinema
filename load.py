@@ -17,8 +17,10 @@ kucinema_theque = 'http://www.kucine.kr/'
 schedule_postfix = 'async/schedule.php'
 movie_postfix = 'async/movie.php?movie=%s'
 
+session = None
+
 def get_info(url, mid):
-    r = requests.get(url + movie_postfix % mid)
+    r = session.get(url + movie_postfix % mid)
     soup = bs(r.text)
     
     info = soup.find('div', class_='fl')
@@ -37,7 +39,7 @@ def parse(url, date):
     data = {
         'date': date.format('YYYYMMDD'),
     }
-    r = requests.post(url + schedule_postfix, data=data)
+    r = session.post(url + schedule_postfix, data=data)
     soup = bs(r.text)
     
     timetable = soup.find('table', id='timetable')
@@ -58,8 +60,9 @@ def parse(url, date):
         
         movie, created = Movie.objects.get_or_create(id=mid, title=title,
                     reservation=reservation)
-        if created:
-            print get_info(url, mid)
+        a,b=get_info(url, mid)
+        for i in a:print i
+        print b
 
         time_start, time_end = time.split(' - ')
 
@@ -78,8 +81,10 @@ def parse(url, date):
 
         print schedule
 
-today = arrow.now()
-for i in range(0,15):
-    day = today.replace(days=i)
-    parse(kucinema_trap, day)
-    #parse(kucinema_theque, day)
+if __name__ == '__main__':
+    session = requests.Session()
+    today = arrow.now()
+    for i in range(0,3):
+        day = today.replace(days=i)
+        parse(kucinema_trap, day)
+        #parse(kucinema_theque, day)
